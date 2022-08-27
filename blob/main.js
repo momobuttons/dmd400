@@ -102,6 +102,16 @@ if (o.isMesh) o.material = newMaterial;
   console.error( error );
 
 } );
+loader.load( 'jartop.glb', function ( gltf ) {
+  var modelTwo = gltf.scene
+
+  scene.add(modelTwo);
+
+}, undefined, function ( error ) {
+
+  console.error( error );
+
+} );
 
 
 
