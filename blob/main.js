@@ -3,8 +3,15 @@ import * as THREE from 'three';
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { GUI } from 'dat.gui';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
+
+
 
 const loader = new GLTFLoader();
+
 
 
 
@@ -15,7 +22,12 @@ light.position.set(10, 10, 10);
 scene.add(light);
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, .1, 1000);
 
+const gui = new GUI();
+
 const renderer = new THREE.WebGL1Renderer();
+const composer = new EffectComposer( renderer );
+composer.addPass(new RenderPass(scene,camera));
+
 document.body.appendChild( renderer.domElement );
 
 
@@ -67,7 +79,6 @@ const geometry1 = new THREE.SphereGeometry( 1, 32, 16 );
 const material1 = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
 const sphere = new THREE.Mesh( geometry1, material1 );
 //scene.add( sphere );
-
 
 // Get float array of all coordinates of vertices
 //const float32array = geometry.attributes.position.array;
@@ -168,7 +179,10 @@ if (o.isMesh) o.material = mat001;
 });
 
   scene.add( modelpixeltest );
-
+  modelpixeltest.traverse(node => node.applyOutline = true);
+  gui.add(gltf.scene.rotation,'x').min(-10).max(9)
+  gui.add(gltf.scene.rotation,'y').min(-10).max(9)
+  gui.add(gltf.scene.rotation,'z').min(-10).max(9)
 }, undefined, function ( error ) {
 
   console.error( error );
@@ -191,6 +205,6 @@ function animate() {
   //cube.rotation.y += 0.01;
   controls.update();
 
-renderer.render( scene, camera );
+composer.render();
 }
 animate();
