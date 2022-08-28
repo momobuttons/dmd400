@@ -7,6 +7,8 @@ import { GUI } from 'dat.gui';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
+import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
+
 
 
 
@@ -27,6 +29,11 @@ const gui = new GUI();
 const renderer = new THREE.WebGL1Renderer();
 const composer = new EffectComposer( renderer );
 composer.addPass(new RenderPass(scene,camera));
+//composer.addPass(op)
+const glitchPass = new GlitchPass();
+composer.addPass( glitchPass );
+
+
 
 document.body.appendChild( renderer.domElement );
 
