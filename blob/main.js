@@ -5,16 +5,19 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { GUI } from 'dat.gui';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
+import { CopyShader } from 'three/examples/jsm/shaders/CopyShader.js';
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
 
 
 
 
 const loader = new GLTFLoader();
 
-
+var selectedObject = []
 
 
 const scene = new THREE.Scene();
@@ -27,11 +30,29 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 const gui = new GUI();
 
 const renderer = new THREE.WebGL1Renderer();
-const composer = new EffectComposer( renderer );
-composer.addPass(new RenderPass(scene,camera));
-//composer.addPass(op)
-const glitchPass = new GlitchPass();
-composer.addPass( glitchPass );
+
+
+var composer = new EffectComposer(renderer);
+var selectedObjects = []
+var renderPass = new RenderPass(scene, camera);
+var outlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera, selectedObjects);
+outlinePass.renderToScreen = true;
+outlinePass.selectedObjects = selectedObjects;
+
+composer.addPass(renderPass);
+composer.addPass(outlinePass);
+var params = {
+    edgeStrength: 2,
+    edgeGlow: 1,
+    edgeThickness: 1.0,
+    pulsePeriod: 0,
+    usePatternTexture: false
+};
+
+outlinePass.edgeStrength = params.edgeStrength;
+outlinePass.edgeGlow = params.edgeGlow;
+outlinePass.visibleEdgeColor.set(0xffffff);
+outlinePass.hiddenEdgeColor.set(0xffffff);
 
 
 
@@ -85,7 +106,9 @@ camera.position.y = 1;
 const geometry1 = new THREE.SphereGeometry( 1, 32, 16 );
 const material1 = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
 const sphere = new THREE.Mesh( geometry1, material1 );
-//scene.add( sphere );
+selectedObject.push(sphere);
+scene.add( sphere );
+
 
 // Get float array of all coordinates of vertices
 //const float32array = geometry.attributes.position.array;
