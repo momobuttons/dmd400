@@ -59,13 +59,14 @@ camera.lookAt(cylinder);
 console.log(camera.position.y);
 console.log(camera.position.z);
 console.log(camera.position.x);
-camera.position.x = 30;
+camera.position.x = 1;
+camera.position.y = 1;
 
 
-const geometry1 = new THREE.SphereGeometry( 1, 1, 1 );
+const geometry1 = new THREE.SphereGeometry( 1, 32, 16 );
 const material1 = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
 const sphere = new THREE.Mesh( geometry1, material1 );
-scene.add( sphere );
+//scene.add( sphere );
 
 
 // Get float array of all coordinates of vertices
@@ -78,7 +79,7 @@ scene.add( sphere );
   console.log(float32array[i]); // Z coordinate
 }*/
 
-loader.load( 'jarsmooth.glb', function ( gltf ) {
+/*loader.load( 'jarsmooth.glb', function ( gltf ) {
   var model = gltf.scene;
   var newMaterial = new THREE.MeshPhysicalMaterial({
     metalness: 0,
@@ -102,10 +103,71 @@ if (o.isMesh) o.material = newMaterial;
   console.error( error );
 
 } );
-loader.load( 'jartop.glb', function ( gltf ) {
+loader.load( 'jarmiddle.glb', function ( gltf ) {
   var modelTwo = gltf.scene
 
   scene.add(modelTwo);
+
+}, undefined, function ( error ) {
+
+  console.error( error );
+
+} );
+loader.load( 'jartopball.glb', function ( gltf ) {
+  var modelThree = gltf.scene
+
+  scene.add(modelThree);
+
+}, undefined, function ( error ) {
+
+  console.error( error );
+
+} );
+
+loader.load( 'ball1.glb', function ( gltf ) {
+  var model1 = gltf.scene
+
+  scene.add(model1);
+
+}, undefined, function ( error ) {
+
+  console.error( error );
+
+} );
+
+
+loader.load( 'ball2.glb', function ( gltf ) {
+  var model2 = gltf.scene
+
+  scene.add(model2);
+
+}, undefined, function ( error ) {
+
+  console.error( error );
+
+} );
+
+loader.load( 'ball3.glb', function ( gltf ) {
+  var model3 = gltf.scene
+
+  scene.add(model3);
+
+}, undefined, function ( error ) {
+
+  console.error( error );
+
+} );*/
+
+loader.load( 'pixels.glb', function ( gltf ) {
+  var mat001 = new THREE.MeshPhysicalMaterial();
+  mat001.color = new THREE.Color("gold");
+  var modelpixeltest = gltf.scene;
+ 
+  modelpixeltest.traverse((o) => {
+if (o.isMesh) o.material = mat001;
+});
+
+  scene.add( modelpixeltest );
 
 }, undefined, function ( error ) {
 
