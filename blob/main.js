@@ -19,12 +19,22 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
 const light = new THREE.PointLight(0xffffff, 2);
 light.position.set(10, 10, 10);
+let lightX = light.position.x;
+let lightY = light.position.y;
+let lightZ = light.position.z;
 scene.add(light);
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, .1, 1000);
 
 const gui = new GUI();
 
 const renderer = new THREE.WebGL1Renderer();
+
+
+gui.add(light.position,'x').min(0).max(100);
+gui.add(light.position,'y').min(0).max(100);
+gui.add(light.position,'z').min(0).max(100);
+
+
 
 
 
