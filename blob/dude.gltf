@@ -1,0 +1,93 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v3.2.40",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "Sphere.001",
+            "scale" : [
+                0.7385903000831604,
+                0.7385903000831604,
+                0.7385903000831604
+            ]
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Sphere.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1
+                    },
+                    "indices" : 2
+                }
+            ]
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 117776,
+            "max" : [
+                1.1850889921188354,
+                1.6704832315444946,
+                1.024685025215149
+            ],
+            "min" : [
+                -0.9095545411109924,
+                -0.9985265731811523,
+                -0.9194510579109192
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 117776,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5125,
+            "count" : 176664,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 1413312,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1413312,
+            "byteOffset" : 1413312
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 706656,
+            "byteOffset" : 2826624
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 3533280,
+            "uri" : "dude.bin"
+        }
+    ]
+}
