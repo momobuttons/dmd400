@@ -4,195 +4,116 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { GUI } from 'dat.gui';
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 
 
-
-
-
+//gui
+const gui = new GUI();
+//loader
 const loader = new GLTFLoader();
-
-var selectedObject = []
-
-
+//scene
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
+//light
 const light = new THREE.PointLight(0xffffff, 2);
 light.position.set(10, 10, 10);
-let lightX = light.position.x;
-let lightY = light.position.y;
-let lightZ = light.position.z;
 scene.add(light);
+//camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, .1, 1000);
-const group = new THREE.Group();
-
-const gui = new GUI();
-
+camera.position.z = 5;
+camera.position.x = 1;
+camera.position.y = 1;
+//renderer
 const renderer = new THREE.WebGL1Renderer();
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.render( scene, camera);
+renderer.setPixelRatio( window.devicePixelRatio );
+//doc append
+document.body.appendChild( renderer.domElement );
+//orbit controls
+const controls = new OrbitControls( camera, renderer.domElement );
+//asset groupd
+const group = new THREE.Group();
+const jargroup = new THREE.Group();
 
-
+//light position gui
 gui.add(light.position,'x').min(0).max(100).name('Light position X');
 gui.add(light.position,'y').min(0).max(100).name('Light position Y');
 gui.add(light.position,'z').min(0).max(100).name('Light position Z');
-
-
-
-
-
-
-document.body.appendChild( renderer.domElement );
-
-
-renderer.setSize( window.innerWidth, window.innerHeight );
-
-
-
-renderer.render( scene, camera);
-renderer.setPixelRatio( window.devicePixelRatio );
-
-/*let posX = 15;
-let posY = 32;
-let posZ = 16;
-const geometry = new THREE.SphereBufferGeometry( posX, posY, posZ );
-const color3 = new THREE.Color("rgb(0, 255, 0)");
-const material = new THREE.MeshBasicMaterial();
-const sphere = new THREE.Mesh( geometry, material );
-sphere.material.color.set(color3);
-scene.add( sphere );
-*/
-//scene.add(new THREE.AxesHelper(5));
-
-
-const geometry = new THREE.CylinderGeometry( 5, 5, 20, 32 );
-const material = new THREE.MeshPhysicalMaterial({
-metalness: 0,
-roughness: 1,
-envMapIntensity: 0.9,
-clearcoat: 1,
-transparent: true,
-transmission: .95,
-opacity: 1,
-reflectivity: 0.2,
-roughness: 0
-})
-const cylinder = new THREE.Mesh( geometry, material );
-//scene.add( cylinder );
-//camera.lookAt(cylinder);
-console.log(camera.position.y);
-console.log(camera.position.z);
-console.log(camera.position.x);
-camera.position.x = 1;
-camera.position.y = 1;
-
-
-const geometry1 = new THREE.SphereGeometry( 1, 32, 16 );
-const material1 = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
-const sphere = new THREE.Mesh( geometry1, material1 );
-selectedObject.push(sphere);
-//scene.add( sphere );
-
-
-// Get float array of all coordinates of vertices
-//const float32array = geometry.attributes.position.array;
-// run loop,  each step of loop need increment by 3, because each vertex has 3 coordinates, X, Y and Z
-/* for (let i = 0; i < float32array.length; i += 3) {
-  // inside the loop you can get coordinates
-  console.log(float32array[i]); // X coordinate
-  console.log(float32array[i]); // Y coordinate
-  console.log(float32array[i]); // Z coordinate
-}*/
-
-loader.load( 'jarsmooth.glb', function ( gltf ) {
-  var model = gltf.scene;
-  var newMaterial = new THREE.MeshPhysicalMaterial({
-    metalness: 0,
-    roughness: 1,
-    envMapIntensity: 0.9,
-    clearcoat: 1,
-    transparent: true,
-    transmission: .95,
-    opacity: 1,
-    reflectivity: 0.2,
-    roughness: 0
+//bottom jar
+loader.load( './blender/jarbottom.glb', function ( gltf ) {
+    let model = gltf.scene;
+    //glass
+    let newMaterial = new THREE.MeshPhysicalMaterial({
+        metalness: 0,
+        roughness: 1,
+        envMapIntensity: 0.9,
+        clearcoat: 1,
+        transparent: true,
+        transmission: .95,
+        opacity: 1,
+        reflectivity: 0.2,
+        roughness: 0
     })
-model.traverse((o) => {
-if (o.isMesh) o.material = newMaterial;
-});
-  group.add( model );
+    model.traverse((o) => {
+        if (o.isMesh) o.material = newMaterial;});
+            group.add( model );
+            jargroup.add( model );
+        }, undefined, function ( error ) {
+      console.error( error );
+    } 
+);
+//middle jar
+loader.load( './blender/jarmiddle.glb', function ( gltf ) {
+    let modelTwo = gltf.scene
+    group.add(modelTwo);
+    jargroup.add(modelTwo);
 }, undefined, function ( error ) {
-  console.error( error );
+    console.error( error );
 } );
-loader.load( 'jarmiddle.glb', function ( gltf ) {
-  var modelTwo = gltf.scene
-  group.add(modelTwo);
+//top jar
+loader.load( './blender/topjar.glb', function ( gltf ) {
+    let modelThree = gltf.scene
+    group.add(modelThree);
+    jargroup.add(modelThree);
 }, undefined, function ( error ) {
-  console.error( error );
+    console.error( error );
 } );
-loader.load( 'jartopball.glb', function ( gltf ) {
-  var modelThree = gltf.scene
-  group.add(modelThree);
-}, undefined, function ( error ) {
-  console.error( error );
-} );
+//character
 loader.load( 'dude2.glb', function ( gltf ) {
-  var modeldude = gltf.scene
-  group.add(modeldude);
-}, undefined, function ( error ) {
-  console.error( error );
-} );
+    let modeldude = gltf.scene;
+    gui.add(modeldude.position,'x', 0, 10, .1).name('character position X');
+    gui.add(modeldude.position,'y', -10, 10, .1).name('character position Y');
+    gui.add(modeldude.position,'z', 0, 10, .1).name('character position Z');
 
-/*
-loader.load( 'ball2.glb', function ( gltf ) {
-  var model2 = gltf.scene
-  scene.add(model2);
+    gui.add(modeldude.rotation,'x', 0, 10, .1).name('character position X');
+    gui.add(modeldude.position,'y', -10, 10, .1).name('character position Y');
+    gui.add(modeldude.position,'z', 0, 10, .1).name('character position Z');
+    group.add(modeldude);
 }, undefined, function ( error ) {
   console.error( error );
-} );
-loader.load( 'ball3.glb', function ( gltf ) {
-  var model3 = gltf.scene
-  scene.add(model3);
-}, undefined, function ( error ) {
-  console.error( error );
-} );*/
-
-/*loader.load( 'pixels.glb', function ( gltf ) {
-  var mat001 = new THREE.MeshPhysicalMaterial();
-  mat001.color = new THREE.Color("gold");
-  var modelpixeltest = gltf.scene;
- 
-  modelpixeltest.traverse((o) => {
-if (o.isMesh) o.material = mat001;
 });
-
-  scene.add( modelpixeltest );
-  modelpixeltest.traverse(node => node.applyOutline = true);
-  gui.add(gltf.scene.rotation,'x').min(-10).max(9)
-  gui.add(gltf.scene.rotation,'y').min(-10).max(9)
-  gui.add(gltf.scene.rotation,'z').min(-10).max(9)
-}, undefined, function ( error ) {
-
-  console.error( error );
-
-} );*/
-
-
-
-
-const controls = new OrbitControls( camera, renderer.domElement );
-
-camera.position.z = 5;
+//update controls
 controls.update();
+//groups
 scene.add(group);
 gui.add(group.position,'x', 0, 10, .1).name('group position X');
 gui.add(group.position,'y', -10, 10, .1).name('group position Y');
 gui.add(group.position,'z', 0, 10, .1).name('group position Z');
+gui.add(group.rotation,'x', 0, 50, .1).name('group rotation X');
+gui.add(group.rotation,'y', 0, 50, .1).name('group rotation Y');
+gui.add(group.rotation,'z', 0, 50, .1).name('group rotation Z');
+scene.add(jargroup);
+gui.add(jargroup.position,'x', 0, 10, .1).name('jargroup position X');
+gui.add(jargroup.position,'y', -10, 10, .1).name('jargroup position Y');
+gui.add(jargroup.position,'z', 0, 10, .1).name('jargroup position Z');
+gui.add(jargroup.rotation,'x', 0, 50, .1).name('jargroup rotation X');
+gui.add(jargroup.rotation,'y', 0, 50, .1).name('jargroup rotation Y');
+gui.add(jargroup.rotation,'z', 0, 50, .1).name('jargroup rotation Z');
+//camera
+camera.lookAt(group);
 
-//shows on canvas
-//loops like p5
 function animate() {
   requestAnimationFrame( animate );
-  //cube.rotation.x += 0.01;
-  //cube.rotation.y += 0.01;
   controls.update();
   renderer.render( scene, camera );
 }
