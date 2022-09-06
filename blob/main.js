@@ -24,15 +24,16 @@ let lightY = light.position.y;
 let lightZ = light.position.z;
 scene.add(light);
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, .1, 1000);
+const group = new THREE.Group();
 
 const gui = new GUI();
 
 const renderer = new THREE.WebGL1Renderer();
 
 
-gui.add(light.position,'x').min(0).max(100);
-gui.add(light.position,'y').min(0).max(100);
-gui.add(light.position,'z').min(0).max(100);
+gui.add(light.position,'x').min(0).max(100).name('Light position X');
+gui.add(light.position,'y').min(0).max(100).name('Light position Y');
+gui.add(light.position,'z').min(0).max(100).name('Light position Z');
 
 
 
@@ -117,25 +118,25 @@ loader.load( 'jarsmooth.glb', function ( gltf ) {
 model.traverse((o) => {
 if (o.isMesh) o.material = newMaterial;
 });
-  scene.add( model );
+  group.add( model );
 }, undefined, function ( error ) {
   console.error( error );
 } );
 loader.load( 'jarmiddle.glb', function ( gltf ) {
   var modelTwo = gltf.scene
-  scene.add(modelTwo);
+  group.add(modelTwo);
 }, undefined, function ( error ) {
   console.error( error );
 } );
 loader.load( 'jartopball.glb', function ( gltf ) {
   var modelThree = gltf.scene
-  scene.add(modelThree);
+  group.add(modelThree);
 }, undefined, function ( error ) {
   console.error( error );
 } );
 loader.load( 'dude2.glb', function ( gltf ) {
   var modeldude = gltf.scene
-  scene.add(modeldude);
+  group.add(modeldude);
 }, undefined, function ( error ) {
   console.error( error );
 } );
@@ -181,6 +182,10 @@ const controls = new OrbitControls( camera, renderer.domElement );
 
 camera.position.z = 5;
 controls.update();
+scene.add(group);
+gui.add(group.position,'x', 0, 10, .1).name('group position X');
+gui.add(group.position,'y', -10, 10, .1).name('group position Y');
+gui.add(group.position,'z', 0, 10, .1).name('group position Z');
 
 //shows on canvas
 //loops like p5
