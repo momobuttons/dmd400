@@ -117,7 +117,7 @@ gui.add(group.rotation,'z', 0, 50, .1).name('group rotation Z');*/
 scene.add(jargroup);
 jargroup.position.x= 0;
 jargroup.position.z= 12;
-jargroup.position.y= 0;
+jargroup.position.y= -.3;
 jargroup.rotation.y = 5;
 
 
