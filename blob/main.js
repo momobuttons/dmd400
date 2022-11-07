@@ -40,6 +40,7 @@ const controls = new OrbitControls( camera, renderer.domElement );
 //asset groupd
 const group = new THREE.Group();
 const jargroup = new THREE.Group();
+const toptop = new THREE.Group();
 
 //light position gui
 //gui.add(light.position,'x').min(0).max(100).name('Light position X');
@@ -68,22 +69,44 @@ loader.load( './blender/jarbottomSmoothLG.glb', function ( gltf ) {
       console.error( error );
     } 
 );
+
+//make the file name random on start --> eventually on burn 
+
+let img1 = 'vrina.glb';
+let img2 = 'salComune.glb';
+let img3 = 'jgms3.glb';
+let img4 = 'jynistoe.glb';
+let img5 = 'oleum.glb';
+const symbol = [img1 , img2, img3, img4, img5];
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
 //middle jar
-loader.load( './blender/jarmiddleLG.glb', function ( gltf ) {
+loader.load( `./blender/topRandom/${symbol[getRandomInt(4)]}`, function ( gltf ) {
     let modelTwo = gltf.scene
     group.add(modelTwo);
     jargroup.add(modelTwo);
+    //toptop.add(modelTwo);
 }, undefined, function ( error ) {
     console.error( error );
-} );
+});
+//gui.add(toptop.rotation,'x', -100, 100, .1).name('toptop position X');
+gui.add(jargroup.rotation,'y', -100, 100, .1).name('jargroup position y');
+//gui.add(toptop.rotation,'z', -100, 100, .1).name('jargroup position z');
+//jargroup.rotation.y = 3.6;
 //top jar
-loader.load( './blender/jartopLG.glb', function ( gltf ) {
+loader.load( './blender/toptop2.glb', function ( gltf ) {
     let modelThree = gltf.scene
     group.add(modelThree);
     jargroup.add(modelThree);
+   // toptop.add(modelThree);
 }, undefined, function ( error ) {
     console.error( error );
-} );
+});
+
+
+
 //character
 loader.load( './blender/dudeLG.glb', function ( gltf ) {
     let modeldude = gltf.scene;
@@ -103,6 +126,11 @@ loader.load( './blender/dudeLG.glb', function ( gltf ) {
 controls.update();
 //groups
 scene.add(group);
+scene.add(toptop);
+
+
+
+
 //group.position.z= 40;
 //group.rotation.y = 40;
 //gui.add(light3.position,'x', -500, 500, .0001).name('group position X');
@@ -129,7 +157,6 @@ group.rotation.y = 5;
 camera.position.z = 20;
 camera.position.x = 0;
 camera.position.y = 0.3;
-gui.add(jargroup.position,'y', -100, 100, .1).name('jargroup position X');
 
 /*gui.add(jargroup.position,'x', 0, 10, .1).name('jargroup position X');
 gui.add(jargroup.position,'y', -10, 10, .1).name('jargroup position Y');
