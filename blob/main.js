@@ -79,7 +79,7 @@ function getRandomInt(max) {
 }
 
 //middle jar
-loader.load( `./blender/topRandom/${symbol[2]}`, function ( gltf ) {
+loader.load( `./blender/topRandom/${symbol[getRandomInt(4)]}`, function ( gltf ) {
     let modelTwo = gltf.scene;
     group.add(modelTwo);
     jargroup.add(modelTwo);
@@ -88,7 +88,7 @@ loader.load( `./blender/topRandom/${symbol[2]}`, function ( gltf ) {
     console.error( error );
 });
 
-loader.load( './blender/toptop5.glb', function ( gltf ) {
+loader.load( './blender/toptoptest11.glb', function ( gltf ) {
     let modelThree = gltf.scene;
     group.add(modelThree);
     jargroup.add(modelThree);
@@ -99,7 +99,7 @@ loader.load( './blender/toptop5.glb', function ( gltf ) {
 
 
 //character
-loader.load( './blender/dudeLG.glb', function ( gltf ) {
+loader.load( './blender/dudedude4.glb', function ( gltf ) {
     let modeldude = gltf.scene;
 
     group.add(modeldude);
@@ -115,23 +115,30 @@ scene.add(toptop);
 
 light.position.y = 72;
 light.position.z = 50;
-light.position.x = 5;
+light.position.x = 0;
 
 scene.add(jargroup);
 
-camera.position.z = 20;
+camera.position.z = 25;
 camera.position.x = 0;
 camera.position.y = 0;
+
+gui.add(group.position,'y').min(-300).max(300);
+
+jargroup.position.x = 1;
+
+jargroup.position.y = -.5;
+group.position.x = 1;
 
 
 function animate() {
   requestAnimationFrame( animate );
 
   const time = clock.getElapsedTime();
-  
 
-  group.position.y = Math.cos( time ) * .5;
-  //group.position.y = Math.sin(time) + .001;
+
+ group.position.y = Math.cos( time ) * .4;
+  //group.position.y = Math.sin(time) + .59;
 
 
 
