@@ -7,7 +7,7 @@ import { GUI } from 'dat.gui';
 
 
 //gui
-const gui = new GUI();
+//const gui = new GUI();
 //loader
 const loader = new GLTFLoader();
 //scene
@@ -24,14 +24,17 @@ let clock = new THREE.Clock();
 //camera
 const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 10000);
 
-var helper = new THREE.CameraHelper(camera);
-scene.add(helper);
+//var helper = new THREE.CameraHelper(camera);
+//scene.add(helper);
 
 //renderer
 const renderer = new THREE.WebGL1Renderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.render( scene, camera);
 renderer.setPixelRatio( window.devicePixelRatio );
+
+
+
 //doc append
 document.body.appendChild( renderer.domElement );
 //orbit controls
@@ -78,6 +81,57 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
+let plant1 = 'Datura';
+let plant2 = 'Artemisia';
+let plant3 = 'Blackthorn';
+let plant4 = 'Rowan';
+let plant5 = 'Sage';
+let plant6 = 'Mint';
+let plant7 = 'Rosemary';
+let plant8 = 'Thyme';
+let plant9 = 'Mugwort';
+let plant10 = 'Yarrow';
+let plantArr = [plant1 , plant2, plant3, plant4, plant5, plant6, plant7, plant8, plant9, plant10];
+document.getElementById("plant").innerHTML = `Associated Plant: ${plantArr[getRandomInt(9)]}`;
+
+let name1 = 'Ake';
+let name2 = 'Odger';
+let name3 = 'Malakai';
+let name4 = 'Eluf';
+let name5 = 'Lif';
+let name6 = 'Folke';
+let name7 = 'Eydis';
+let name8 = 'Frode';
+let name9 = 'Gyda';
+let name10 = 'Hod';
+let name11 = 'Inkeri';
+let name12 = 'Loki';
+let name13 = 'Olaf';
+let name14 = 'Olavi';
+let name15 = 'Oydis';
+let name16 = 'Oscar';
+let name17 = 'Siv';
+let nameArr = [name1 , name2, name3, name4, name5, name6, name7, name8, name9, name10, name11, name12, name13, name14, name15, name16, name17];
+
+document.getElementById("name").innerHTML = `Name: ${nameArr[getRandomInt(16)]}`;
+
+
+let color1 = '#33FFBD';
+let color2 = '#33FF57';
+let color3 = '#DBFF33';
+let color4 = '#DFFF00';
+let color5 = '#40E0D0';
+let color6 = '#CCCCFF';
+let color7 = '#826aed';
+let color8 = '#c879ff';
+let color9 = '#ffb7ff';
+let color10 = '#3bf4fb';
+let colorArr = [color1 , color2, color3, color4, color5, color6, color7, color8, color9, color10];
+document.getElementById("color").style.backgroundColor = colorArr[getRandomInt(9)];
+
+
+
+
 //middle jar
 loader.load( `./blender/topRandom/${symbol[getRandomInt(4)]}`, function ( gltf ) {
     let modelTwo = gltf.scene;
@@ -119,16 +173,16 @@ light.position.x = 0;
 
 scene.add(jargroup);
 
-camera.position.z = 25;
-camera.position.x = 0;
-camera.position.y = 0;
+camera.position.z = 20;
+camera.position.x = 1;
+camera.position.y = -1.5;
 
-gui.add(group.position,'y').min(-300).max(300);
+//gui.add(group.position,'y').min(-300).max(300);
 
-jargroup.position.x = 1;
+jargroup.position.x = 1.5;
 
 jargroup.position.y = -.5;
-group.position.x = 1;
+group.position.x = 1.5;
 
 
 function animate() {
