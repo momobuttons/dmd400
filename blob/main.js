@@ -46,7 +46,7 @@ const jargroup = new THREE.Group();
 const toptop = new THREE.Group();
 
 
-loader.load( './blender/jarbottomSmoothLG.glb', function ( gltf ) {
+loader.load( './blender/glass.glb', function ( gltf ) {
     let model = gltf.scene;
     //glass
     let newMaterial = new THREE.MeshPhysicalMaterial({
@@ -71,11 +71,11 @@ loader.load( './blender/jarbottomSmoothLG.glb', function ( gltf ) {
 
 //make the file name random on start --> eventually on burn 
 
-let img1 = 'vrinaAluminium.gltf';
-let img2 = 'salComuneGold.gltf';
-let img3 = 'jgmsAluminium.gltf';
-let img4 = 'jynistoeCopper.gltf';
-let img5 = 'oleumCopper.gltf';
+let img1 = 'vrinaGold.gltf';//
+let img2 = 'salComuneGold.gltf';//
+let img3 = 'jgmsCopperBottom.gltf';//
+let img4 = 'jynistoeGold.gltf';//
+let img5 = 'oleumGold.gltf';
 const symbol = [img1 , img2, img3, img4, img5];
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -133,7 +133,7 @@ document.getElementById("color").style.backgroundColor = colorArr[getRandomInt(9
 
 
 //middle jar
-loader.load( `./blender/topRandom/${symbol[getRandomInt(4)]}`, function ( gltf ) {
+loader.load( `./blender/bottomSymbol/${symbol[getRandomInt(4)]}`, function ( gltf ) {
     let modelTwo = gltf.scene;
     group.add(modelTwo);
     jargroup.add(modelTwo);
@@ -142,7 +142,7 @@ loader.load( `./blender/topRandom/${symbol[getRandomInt(4)]}`, function ( gltf )
     console.error( error );
 });
 
-loader.load( './blender/topLeather.gltf', function ( gltf ) {
+loader.load( './blender/capsule/topCopper.gltf', function ( gltf ) {
     let modelThree = gltf.scene;
    group.add(modelThree);
  jargroup.add(modelThree);
@@ -150,18 +150,18 @@ loader.load( './blender/topLeather.gltf', function ( gltf ) {
     console.error( error );
 });
 
-loader.load( './blender/bottomLeather.gltf', function ( gltf ) {
+/*loader.load( './blender/bottomLeather.gltf', function ( gltf ) {
     let modelThree = gltf.scene;
     group.add(modelThree);
     jargroup.add(modelThree);
 }, undefined, function ( error ) {
     console.error( error );
-});
+});*/
 
 
 
 //character
-loader.load( './blender/blobdot.gltf', function ( gltf ) {
+loader.load( './blender/dude/blobdot.gltf', function ( gltf ) {
     let modeldude = gltf.scene;
 
     group.add(modeldude);
