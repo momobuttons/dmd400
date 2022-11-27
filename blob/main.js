@@ -7,14 +7,14 @@ import { GUI } from 'dat.gui';
 
 
 //gui
-//const gui = new GUI();
+const gui = new GUI();
 //loader
 const loader = new GLTFLoader();
 //scene
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
 //light
-const light = new THREE.PointLight(0xffffff, 2);
+const light = new THREE.PointLight(0xffffff, 3);
 light.position.set(0, 0, 0);
 scene.add(light);
 
@@ -71,11 +71,11 @@ loader.load( './blender/jarbottomSmoothLG.glb', function ( gltf ) {
 
 //make the file name random on start --> eventually on burn 
 
-let img1 = 'vrinar.glb';
-let img2 = 'salComunerr.glb';
-let img3 = 'jgmsr.glb';
-let img4 = 'jynistoer2.glb';
-let img5 = 'oleumr.glb';
+let img1 = 'v.gltf';
+let img2 = 'salComune2.glb';
+let img3 = 'jj.glb';
+let img4 = 'jynistoe2.glb';
+let img5 = 'oleum2.glb';
 const symbol = [img1 , img2, img3, img4, img5];
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -144,8 +144,8 @@ loader.load( `./blender/topRandom/${symbol[getRandomInt(4)]}`, function ( gltf )
 
 loader.load( './blender/toptoptest11.glb', function ( gltf ) {
     let modelThree = gltf.scene;
-    group.add(modelThree);
-    jargroup.add(modelThree);
+    //group.add(modelThree);
+    //jargroup.add(modelThree);
 }, undefined, function ( error ) {
     console.error( error );
 });
@@ -153,14 +153,17 @@ loader.load( './blender/toptoptest11.glb', function ( gltf ) {
 
 
 //character
-loader.load( './blender/dudedude4.glb', function ( gltf ) {
+loader.load( './blender/blobdot.gltf', function ( gltf ) {
     let modeldude = gltf.scene;
 
     group.add(modeldude);
+    gui.add(modeldude.position,'y').min(-300).max(300);
+
     //jargroup.add(modeldude);
 }, undefined, function ( error ) {
   console.error( error );
 });
+
 //update controls
 controls.update();
 //groups
