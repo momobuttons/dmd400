@@ -14,7 +14,7 @@ const loader = new GLTFLoader();
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
 //light
-const light = new THREE.PointLight(0xffffff, 3);
+const light = new THREE.PointLight(0xffffff, 15);
 light.position.set(0, 0, 0);
 scene.add(light);
 
@@ -71,11 +71,11 @@ loader.load( './blender/jarbottomSmoothLG.glb', function ( gltf ) {
 
 //make the file name random on start --> eventually on burn 
 
-let img1 = 'v.gltf';
-let img2 = 'salComune2.glb';
-let img3 = 'jj.glb';
-let img4 = 'jynistoe2.glb';
-let img5 = 'oleum2.glb';
+let img1 = 'vrinaAluminium.gltf';
+let img2 = 'salComuneGold.gltf';
+let img3 = 'jgmsAluminium.gltf';
+let img4 = 'jynistoeCopper.gltf';
+let img5 = 'oleumCopper.gltf';
 const symbol = [img1 , img2, img3, img4, img5];
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -142,10 +142,18 @@ loader.load( `./blender/topRandom/${symbol[getRandomInt(4)]}`, function ( gltf )
     console.error( error );
 });
 
-loader.load( './blender/toptoptest11.glb', function ( gltf ) {
+loader.load( './blender/topLeather.gltf', function ( gltf ) {
     let modelThree = gltf.scene;
-    //group.add(modelThree);
-    //jargroup.add(modelThree);
+   group.add(modelThree);
+ jargroup.add(modelThree);
+}, undefined, function ( error ) {
+    console.error( error );
+});
+
+loader.load( './blender/bottomLeather.gltf', function ( gltf ) {
+    let modelThree = gltf.scene;
+    group.add(modelThree);
+    jargroup.add(modelThree);
 }, undefined, function ( error ) {
     console.error( error );
 });
