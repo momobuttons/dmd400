@@ -3,3 +3,4 @@ canvas{margin:0 auto;}
 body {text-align: center;}
 button {font-family:'Fjalla One',sans-serif;font-size:20px;line-height:40px;transition:500ms;}
 #app h1:not(:first-child) {font-family: 'Syne Mono', monospace;}
+a {color:black;text-decoration:none;}
