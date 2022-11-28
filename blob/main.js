@@ -75,7 +75,7 @@ loader.load( './blender/glass.glb', function ( gltf ) {
 );
 
 //make the file name random on start --> eventually on burn 
-
+let symbolIndex = getRandomInt(4);
 let img1 = 'vrinaGold.gltf';//
 let img2 = 'salComuneGold.gltf';//
 let img3 = 'jgmsCopperBottom.gltf';//
@@ -86,13 +86,15 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-let element1 = 'Earth';
-let element2 = 'Fire';
-let element3 = 'Air';
-let element4 = 'Water';
+let element1 = 'Vrina';
+let element2 = 'Sal Comune';
+let element3 = 'Jynistroloe';
+let element4 = 'Jynistroloe';
+let element5 = 'Oleum';
 
-let elementArr = [element1 , element2, element3, element4];
-document.getElementById("element").innerHTML = `Element: ${elementArr[getRandomInt(3)]}`;
+
+let elementArr = [element1 , element2, element3, element4, element5];
+document.getElementById("element").innerHTML = `Element: ${elementArr[symbolIndex]}`;
 
 let name1 = 'Ake';
 let name2 = 'Odger';
@@ -134,7 +136,7 @@ scene.add( light3 );
 
 
 //middle jar
-loader.load( `./blender/bottomSymbol/${symbol[getRandomInt(4)]}`, function ( gltf ) {
+loader.load( `./blender/bottomSymbol/${symbol[symbolIndex]}`, function ( gltf ) {
     let modelTwo = gltf.scene;
     group.add(modelTwo);
     jargroup.add(modelTwo);
