@@ -3,22 +3,27 @@ import * as THREE from 'three';
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { GUI } from 'dat.gui';
+//import { GUI } from 'dat.gui';
 
 
 //gui
-const gui = new GUI();
+//const gui = new GUI();
 //loader
 const loader = new GLTFLoader();
 //scene
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
 //light
-const light = new THREE.PointLight(0xffffff, 15);
-light.position.set(0, 0, 0);
+const light = new THREE.PointLight(0xffffff, 2);
+light.position.set(4, 4, 69);
 scene.add(light);
 
 let clock = new THREE.Clock();
+
+/*const light2 = new THREE.AmbientLight( 0x404040,20 ); // soft white light
+
+scene.add( light2 )*/
+
 
 
 //camera
@@ -29,14 +34,14 @@ const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerH
 
 //renderer
 const renderer = new THREE.WebGL1Renderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setSize( window.innerWidth * .5, window.innerHeight * .5);
 renderer.render( scene, camera);
 renderer.setPixelRatio( window.devicePixelRatio );
 
 
 
 //doc append
-document.body.appendChild( renderer.domElement );
+document.getElementById("app").appendChild( renderer.domElement );
 //orbit controls
 const controls = new OrbitControls( camera, renderer.domElement );
 
@@ -81,18 +86,13 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-let plant1 = 'Datura';
-let plant2 = 'Artemisia';
-let plant3 = 'Blackthorn';
-let plant4 = 'Rowan';
-let plant5 = 'Sage';
-let plant6 = 'Mint';
-let plant7 = 'Rosemary';
-let plant8 = 'Thyme';
-let plant9 = 'Mugwort';
-let plant10 = 'Yarrow';
-let plantArr = [plant1 , plant2, plant3, plant4, plant5, plant6, plant7, plant8, plant9, plant10];
-document.getElementById("plant").innerHTML = `Associated Plant: ${plantArr[getRandomInt(9)]}`;
+let element1 = 'Earth';
+let element2 = 'Fire';
+let element3 = 'Air';
+let element4 = 'Water';
+
+let elementArr = [element1 , element2, element3, element4];
+document.getElementById("element").innerHTML = `Element: ${elementArr[getRandomInt(3)]}`;
 
 let name1 = 'Ake';
 let name2 = 'Odger';
@@ -116,19 +116,20 @@ let nameArr = [name1 , name2, name3, name4, name5, name6, name7, name8, name9, n
 document.getElementById("name").innerHTML = `Name: ${nameArr[getRandomInt(16)]}`;
 
 
-let color1 = '#33FFBD';
-let color2 = '#33FF57';
-let color3 = '#DBFF33';
-let color4 = '#DFFF00';
-let color5 = '#40E0D0';
-let color6 = '#CCCCFF';
-let color7 = '#826aed';
+let color1 = '#f000ff';
+let color2 = '#ffe700';
+let color3 = '#4deeea';
+let color4 = '#83018E';
+let color5 = '#ff00fa';
+let color6 = '#04eeff';
+let color7 = '#ffff71';
 let color8 = '#c879ff';
-let color9 = '#ffb7ff';
-let color10 = '#3bf4fb';
+let color9 = '#7fff00';
+let color10 = '#ccff00';
 let colorArr = [color1 , color2, color3, color4, color5, color6, color7, color8, color9, color10];
-document.getElementById("color").style.backgroundColor = colorArr[getRandomInt(9)];
-
+//document.getElementById("color").style.backgroundColor = colorArr[getRandomInt(9)];
+const light3 = new THREE.HemisphereLight( 0xffffbb, `${colorArr[getRandomInt(9)]}`, 4);
+scene.add( light3 );
 
 
 
@@ -145,6 +146,7 @@ loader.load( `./blender/bottomSymbol/${symbol[getRandomInt(4)]}`, function ( glt
 loader.load( './blender/capsule/topCopper.gltf', function ( gltf ) {
     let modelThree = gltf.scene;
    group.add(modelThree);
+ 
  jargroup.add(modelThree);
 }, undefined, function ( error ) {
     console.error( error );
@@ -165,8 +167,8 @@ loader.load( './blender/dude/blobdot.gltf', function ( gltf ) {
     let modeldude = gltf.scene;
 
     group.add(modeldude);
-    gui.add(modeldude.position,'y').min(-300).max(300);
-
+   // gui.add(modeldude.position,'y').min(-300).max(300);
+        modeldude.position.y = 3.5;
     //jargroup.add(modeldude);
 }, undefined, function ( error ) {
   console.error( error );
@@ -178,22 +180,25 @@ controls.update();
 scene.add(group);
 scene.add(toptop);
 
-light.position.y = 72;
+/*light.position.y = 72;
 light.position.z = 50;
-light.position.x = 0;
+light.position.x = 0;*/
 
 scene.add(jargroup);
 
-camera.position.z = 20;
+camera.position.z = 17;
 camera.position.x = 1;
 camera.position.y = -1.5;
 
-//gui.add(group.position,'y').min(-300).max(300);
+/*gui.add(camera.position,'x').min(-300).max(300);
+gui.add(camera.position,'y').min(-300).max(300);
+gui.add(camera.position,'z').min(-300).max(300);*/
 
 jargroup.position.x = 1.5;
 
-jargroup.position.y = -.5;
+jargroup.position.y = 3;
 group.position.x = 1.5;
+
 
 
 function animate() {

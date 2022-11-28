@@ -1,6 +1,5 @@
-#color {
-    height: 25px;
-    width: 25px;
-    background-color: #bbb;
-    border-radius: 50%;
-  }
+canvas{margin:0 auto;}
+#app h1:nth-child(1) {padding-bottom: 1%;padding-top: 2%;font-size: 40px;line-height: 50px;font-family: 'Fjalla One', sans-serif;}
+body {text-align: center;}
+button {font-family:'Fjalla One',sans-serif;font-size:20px;line-height:40px;transition:500ms;}
+#app h1:not(:first-child) {font-family: 'Syne Mono', monospace;}
