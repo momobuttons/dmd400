@@ -3,12 +3,7 @@ import * as THREE from 'three';
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-//import { GUI } from 'dat.gui';
 
-
-//gui
-//const gui = new GUI();
-//loader
 const loader = new GLTFLoader();
 //scene
 const scene = new THREE.Scene();
@@ -20,25 +15,14 @@ scene.add(light);
 
 let clock = new THREE.Clock();
 
-/*const light2 = new THREE.AmbientLight( 0x404040,20 ); // soft white light
-
-scene.add( light2 )*/
-
-
-
 //camera
 const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 10000);
-
-//var helper = new THREE.CameraHelper(camera);
-//scene.add(helper);
 
 //renderer
 const renderer = new THREE.WebGL1Renderer();
 renderer.setSize( window.innerWidth * .5, window.innerHeight * .5);
 renderer.render( scene, camera);
 renderer.setPixelRatio( window.devicePixelRatio );
-
-
 
 //doc append
 document.getElementById("app").appendChild( renderer.domElement );
@@ -51,7 +35,7 @@ const jargroup = new THREE.Group();
 const toptop = new THREE.Group();
 
 
-loader.load( './blender/glass.glb', function ( gltf ) {
+loader.load( 'https://momobuttons.github.io/models-repo/glass.glb', function ( gltf ) {
     let model = gltf.scene;
     //glass
     let newMaterial = new THREE.MeshPhysicalMaterial({
@@ -76,11 +60,12 @@ loader.load( './blender/glass.glb', function ( gltf ) {
 
 //make the file name random on start --> eventually on burn 
 let symbolIndex = getRandomInt(4);
-let img1 = 'vrinaGold.gltf';//
-let img2 = 'salComuneGold.gltf';//
-let img3 = 'jgmsCopperBottom.gltf';//
-let img4 = 'jynistoeGold.gltf';//
-let img5 = 'oleumGold.gltf';
+let plantIndex = getRandomInt(3);
+let img1 = 'https://momobuttons.github.io/models-repo/vrinaGold.gltf';
+let img2 = 'https://momobuttons.github.io/models-repo/salComuneGold.gltf';
+let img3 = 'https://momobuttons.github.io/models-repo/jgmsCopperBottom.gltf';//
+let img4 = 'https://momobuttons.github.io/models-repo/jynistoeGold.gltf';//
+let img5 = 'https://momobuttons.github.io/models-repo/oleumGold.gltf';
 const symbol = [img1 , img2, img3, img4, img5];
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -129,91 +114,75 @@ let color8 = '#c879ff';
 let color9 = '#7fff00';
 let color10 = '#ccff00';
 let colorArr = [color1 , color2, color3, color4, color5, color6, color7, color8, color9, color10];
-//document.getElementById("color").style.backgroundColor = colorArr[getRandomInt(9)];
 const light3 = new THREE.HemisphereLight( 0xffffbb, `${colorArr[getRandomInt(9)]}`, 4);
 scene.add( light3 );
 
 
 
 //middle jar
-loader.load( `./blender/bottomSymbol/${symbol[symbolIndex]}`, function ( gltf ) {
+loader.load( `${symbol[symbolIndex]}`, function ( gltf ) {
     let modelTwo = gltf.scene;
     group.add(modelTwo);
     jargroup.add(modelTwo);
-    //toptop.add(modelTwo);
 }, undefined, function ( error ) {
     console.error( error );
 });
 
-loader.load( './blender/capsule/topCopper.gltf', function ( gltf ) {
-    let modelThree = gltf.scene;
+loader.load( 'https://momobuttons.github.io/models-repo/topCopper.gltf', function ( gltf ) {
+   let modelThree = gltf.scene;
    group.add(modelThree);
- 
- jargroup.add(modelThree);
+   jargroup.add(modelThree);
 }, undefined, function ( error ) {
     console.error( error );
 });
-
-/*loader.load( './blender/bottomLeather.gltf', function ( gltf ) {
-    let modelThree = gltf.scene;
-    group.add(modelThree);
-    jargroup.add(modelThree);
-}, undefined, function ( error ) {
-    console.error( error );
-});*/
-
-
 
 //character
-loader.load( './blender/dude/blobdot.gltf', function ( gltf ) {
+loader.load( 'https://momobuttons.github.io/models-repo/blobdot.gltf', function ( gltf ) {
     let modeldude = gltf.scene;
-
     group.add(modeldude);
-   // gui.add(modeldude.position,'y').min(-300).max(300);
-        modeldude.position.y = 3.5;
-    //jargroup.add(modeldude);
+    modeldude.position.y = 3.5;
 }, undefined, function ( error ) {
   console.error( error );
 });
+
+let plant1 = 'https://momobuttons.github.io/models-repo/fourpetal.gltf';
+let plant2 = 'https://momobuttons.github.io/models-repo/sixpetal.gltf';
+let plant3 = 'https://momobuttons.github.io/models-repo/threepetal.gltf';
+
+let plantArr = [plant1 , plant2, plant3];
+//plants
+loader.load( `${plantArr[plantIndex]}`, function ( gltf ) {
+    let fourpetal = gltf.scene;
+
+    group.add(fourpetal);
+    fourpetal.position.y = 3.2;
+    fourpetal.position.x = 0.2;
+    fourpetal.position.z = 0.1;
+
+}, undefined, function ( error ) {
+  console.error( error );
+});
+
 
 //update controls
 controls.update();
 //groups
 scene.add(group);
 scene.add(toptop);
-
-/*light.position.y = 72;
-light.position.z = 50;
-light.position.x = 0;*/
-
 scene.add(jargroup);
 
 camera.position.z = 17;
 camera.position.x = 1;
 camera.position.y = -1.5;
 
-/*gui.add(camera.position,'x').min(-300).max(300);
-gui.add(camera.position,'y').min(-300).max(300);
-gui.add(camera.position,'z').min(-300).max(300);*/
-
 jargroup.position.x = 1.5;
-
 jargroup.position.y = 3;
 group.position.x = 1.5;
 
-
-
 function animate() {
   requestAnimationFrame( animate );
-
   const time = clock.getElapsedTime();
-
-
- group.position.y = Math.cos( time ) * .4;
-  //group.position.y = Math.sin(time) + .59;
-
-
-
+  group.position.y = Math.cos( time ) * .4;
   controls.update();
   renderer.render( scene, camera );
 }
