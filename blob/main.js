@@ -9,7 +9,7 @@ const loader = new GLTFLoader();
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
 //light
-const light = new THREE.PointLight(0xffffff, 2);
+const light = new THREE.PointLight(0xffffff, 1);
 light.position.set(4, 4, 69);
 scene.add(light);
 
@@ -59,26 +59,27 @@ loader.load( 'https://momobuttons.github.io/models-repo/glass.glb', function ( g
 );
 
 //make the file name random on start --> eventually on burn 
-let symbolIndex = getRandomInt(4);
+let symbolIndex = getRandomInt(3);
 let plantIndex = getRandomInt(3);
-let img1 = 'https://momobuttons.github.io/models-repo/vrinaGold.gltf';
-let img2 = 'https://momobuttons.github.io/models-repo/salComuneGold.gltf';
-let img3 = 'https://momobuttons.github.io/models-repo/jgmsCopperBottom.gltf';//
-let img4 = 'https://momobuttons.github.io/models-repo/jynistoeGold.gltf';//
-let img5 = 'https://momobuttons.github.io/models-repo/oleumGold.gltf';
-const symbol = [img1 , img2, img3, img4, img5];
+
+
+let img1 = './lowpoly/jynistoe.gltf';
+let img2 = './lowpoly/oleum.gltf';
+let img3 = './lowpoly/salcomune.gltf';
+
+const symbol = [img1 , img2, img3];
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-let element1 = 'Vrina';
-let element2 = 'Sal Comune';
-let element3 = 'Jynistroloe';
-let element4 = 'Jynistroloe';
-let element5 = 'Oleum';
+let element1 = 'Jynistoe';
+let element2 = 'Oleum';
+let element3 = 'Sal Comune';
 
 
-let elementArr = [element1 , element2, element3, element4, element5];
+
+
+let elementArr = [element1 , element2, element3];
 document.getElementById("element").innerHTML = `Element: ${elementArr[symbolIndex]}`;
 
 let name1 = 'Ake';
@@ -120,7 +121,7 @@ scene.add( light3 );
 
 
 //middle jar
-loader.load( `${symbol[symbolIndex]}`, function ( gltf ) {
+loader.load(  `${symbol[symbolIndex]}`, function ( gltf ) {
     let modelTwo = gltf.scene;
     group.add(modelTwo);
     jargroup.add(modelTwo);
@@ -128,7 +129,7 @@ loader.load( `${symbol[symbolIndex]}`, function ( gltf ) {
     console.error( error );
 });
 
-loader.load( 'https://momobuttons.github.io/models-repo/topCopper.gltf', function ( gltf ) {
+loader.load( 'https://momobuttons.github.io/models-repo/topoj.gltf', function ( gltf ) {
    let modelThree = gltf.scene;
    group.add(modelThree);
    jargroup.add(modelThree);
